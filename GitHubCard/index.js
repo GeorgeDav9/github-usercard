@@ -2,6 +2,17 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
+axios.get('https://api.github.com/users/GeorgeDav9') 
+  .then(response => {
+    //console.log(response);
+    let obj = response.data;
+    document.querySelector('.cards').appendChild(gitCard(obj));
+  })
+
+  .catch(error => {
+    console.log(error);
+  })
+
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,7 +35,9 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,7 +58,50 @@ const followersArray = [];
 </div>
 
 */
+ function gitCard(ghUser) {
+   const card = document.createElement("div");
+   const cardImg = document.createElement("img");
+   const cardInfo = document.createElement("div");
+   const name = document.createElement("h3");
+   const username = document.createElement("p");
+   const location = document.createElement("p");
+   const profile = document.createElement("p");
+   const profileUrl = document.createElement("a");
+   const followers = document.createElement("p");
+   const following = document.createElement("p");
+   const bio = document.createElement("p")
 
+   // classes
+   card.classList.add("card");
+   cardInfo.classList.add("card-info");
+   username.classList.add("username");
+   name.classList.add("name");
+
+ // content
+ cardImg.src = ghUser.avatar_url;
+ name.textContent = ghUser.name;
+ username.textContent = ghUser.username;
+ location.textContent = `Location: ${ghUser.location}`;
+ profile.textContent = `Profile: ${ghUser.html_url}`;
+ profileUrl.target = "_blank";
+ followers.textContent = `Followers: ${ghUser.followers}`;
+ following.textContent = `Following: ${ghUser.following}`;  
+ bio.textContent = `Bio: ${ghUser.bio}`;
+
+ // appending
+   card.appendChild(cardImg);
+   card.appendChild(cardInfo);
+   cardInfo.appendChild(name);
+   cardInfo.appendChild(username);
+   cardInfo.appendChild(location);
+   cardInfo.appendChild(profile);
+   cardInfo.appendChild(following);
+   cardInfo.appendChild(followers);
+   cardInfo.appendChild(bio);
+   profile.appendChild(bio);
+
+   return card;
+ }
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
