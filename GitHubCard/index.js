@@ -35,9 +35,25 @@ axios.get('https://api.github.com/users/GeorgeDav9')
           user, and adding that card to the DOM.
 */
 
+const parentComp = document.querySelector(".cards");
+
 const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'];
   
-];
+  followersArray.forEach(follower=>{
+    axios.get(`https://api.github.com/users/${follower}`)
+      .then(info=>{
+
+        const cards = document.querySelector('.cards');
+        cards.append(gitCard(info.data));
+      })
+
+  })
+
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
